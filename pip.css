@@ -1,0 +1,11 @@
+/* pip.css */
+:root {
+  --pip-font-size: 80px;
+  --pip-font-family:'Technology', monospace;
+  --pip-text-color: white;
+  --pip-line-height: 30;
+  --pip-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  --pip-bg-overlay: rgba(0, 0, 0, 0.5);
+  --pip-line-height: 80; /* khoảng cách giữa các dòng, tính bằng pixel */
+}
+

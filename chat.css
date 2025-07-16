@@ -1,0 +1,104 @@
+#chatBtn {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.983);
+  z-index: 1000;
+}
+#chatBtn:hover {
+  background: #acacacd2;
+  color: #fdfcfc;
+}
+/* Giao diện chat box */
+#chat-box {
+  display: none;
+  position: fixed;
+  bottom: 36%;
+  right: 20px;
+  background: #f6f4f4; /* giữ mặc định là đen */
+  color: #000000;
+  padding: 20px;
+  border-radius: 12px;
+  z-index: 999;
+  width: 400px;
+  max-height: auto;
+  font-weight: 600;
+}
+#chat-box input,
+#chat-box textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  color: #000;
+}
+#chat-box button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #585858;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+#chat-box button:hover {
+  background: #323232;
+}
+
+#chat-box.slide-in {
+  display: block;
+  animation: chatSlideIn 0.5s ease forwards;
+}
+#chat-box.slide-out {
+  animation: chatSlideOut 0.5s ease forwards;
+}
+/* Tiêu đề phân cách */
+.section-title {
+  margin-top: 0px;         /* ✅ Giảm khoảng cách lề trên */
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #8f8f8f;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* NIGHT MODE - Chat box */
+body.dark-mode #chat-box {
+  background: #1a1a1a;
+  color: #fff;
+}
+body.dark-mode #chat-box input,
+body.dark-mode #chat-box textarea {
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+body.dark-mode #chat-box button {
+  background: #333;
+  color: #fff;
+}
+body.dark-mode #chat-box button:hover {
+  background: #555;
+}
+
+/* Chat animation */
+@keyframes chatSlideIn {
+  from {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes chatSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}

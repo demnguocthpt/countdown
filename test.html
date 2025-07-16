@@ -1,0 +1,90 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // Toggle profile panel
+  const toggleProfile = document.getElementById("toggleProfile");
+  const profilePanel = document.getElementById("profilePanel");
+
+  toggleProfile?.addEventListener("click", () => {
+    profilePanel?.classList.toggle("active");
+  });
+
+  // Avatar change
+  const avatarImg = document.getElementById("avatarImage");
+  const avatarInput = document.getElementById("avatarInput");
+  const changeAvatarBtn = document.getElementById("changeAvatarBtn");
+
+  const savedAvatar = localStorage.getItem("profile_avatar");
+  if (savedAvatar) avatarImg.src = savedAvatar;
+
+  changeAvatarBtn?.addEventListener("click", () => avatarInput?.click());
+
+  avatarInput?.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const dataURL = e.target.result;
+      avatarImg.src = dataURL;
+      localStorage.setItem("profile_avatar", dataURL);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Profile editable
+  const nameEl = document.getElementById("profileName");
+  const descEl = document.getElementById("profileDesc");
+  const editBtn = document.getElementById("editProfileBtn");
+  const saveBtn = document.getElementById("saveProfileBtn");
+
+  const socialFields = {
+    insta: document.getElementById("socialInsta"),
+    discord: document.getElementById("socialDiscord"),
+    twitter: document.getElementById("socialTwitter"),
+    spotify: document.getElementById("socialSpotify"),
+  };
+
+  function loadProfile() {
+    const profile = JSON.parse(localStorage.getItem("userProfile")) || {};
+    if (profile.name) nameEl.innerText = profile.name;
+    if (profile.desc) descEl.innerText = profile.desc;
+    if (profile.social) {
+      socialFields.insta.value = profile.social.insta || "";
+      socialFields.discord.value = profile.social.discord || "";
+      socialFields.twitter.value = profile.social.twitter || "";
+      socialFields.spotify.value = profile.social.spotify || "";
+    }
+  }
+
+  function enableEditing(enable) {
+    nameEl.contentEditable = enable;
+    descEl.contentEditable = enable;
+    Object.values(socialFields).forEach(input => input.readOnly = !enable);
+    editBtn.style.display = enable ? "none" : "inline-block";
+    saveBtn.style.display = enable ? "inline-block" : "none";
+  }
+
+  editBtn?.addEventListener("click", () => enableEditing(true));
+
+  saveBtn?.addEventListener("click", () => {
+    const profile = {
+      name: nameEl.innerText.trim(),
+      desc: descEl.innerText.trim(),
+      social: {
+        insta: socialFields.insta.value.trim(),
+        discord: socialFields.discord.value.trim(),
+        twitter: socialFields.twitter.value.trim(),
+        spotify: socialFields.spotify.value.trim()
+      }
+    };
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+    enableEditing(false);
+    alert("✅ Đã lưu thông tin cá nhân!");
+  });
+
+  // Ẩn nút edit nếu chưa đăng nhập
+  if (!localStorage.getItem("currentUser")) {
+    if (editBtn) editBtn.style.display = "none";
+  }
+
+  loadProfile();
+});

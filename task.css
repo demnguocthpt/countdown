@@ -1,0 +1,149 @@
+#taskPanel {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 410px;
+  background: #ffffff; /* <-- nền trắng mặc định */
+  color: #000000;       /* <-- chữ đen mặc định */
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 3000;
+}
+.slide-in {
+  animation: slideInRight 0.5s ease forwards;
+}
+.slide-out {
+  animation: slideOutRight 0.5s ease forwards;
+}
+#toggleTaskPanel{
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.983);
+}
+#taskPanel h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+    border-bottom: 2px solid #8f8f8f;
+}
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #a3a3a3;
+  transition: background 0.2s ease;
+}
+.task-item:hover {
+  background: #ffffff;
+  border-radius: 6px;
+}
+.task-item input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 6px;
+}
+.task-item span {
+  flex-grow: 1;
+  font-size: 14px;
+  margin-left: 4px;
+  word-break: break-word;
+}
+.task-item.done span {
+  text-decoration: line-through;
+  color: #aaa;
+}
+.task-item .deadline {
+  font-size: 11px;
+  color: #888;
+  margin-left: 5px;
+}
+.task-item .priorityBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #eb0000;
+  transition: color 0.2s;
+}
+.task-item.priority .priorityBtn {
+  color: gold;
+}
+.task-item .priorityBtn:hover {
+  color: gold;
+}
+.task-item .deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #c00;
+  margin-left: 4px;
+  transition: opacity 0.2s;
+}
+.task-item .deleteBtn:hover {
+  opacity: 0.8;
+}
+/* Input */
+#taskInput,
+#deadlineInput {
+  width: 100%;
+  padding: 6px;
+  margin-top: 8px;
+  border-radius: 6px;
+  border: 1px solid #000000;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+#addTaskBtn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  background: #4e4e4e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+#addTaskBtn:hover {
+  background: #828282;
+}
+
+/* NIGHT MODE - taskPanel */
+body.dark-mode #taskPanel {
+  background: #1a1a1a;
+  color: #f3f3f3;
+}
+body.dark-mode #taskPanel input[type="text"],
+body.dark-mode #taskPanel input[type="date"] {
+  background: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
+}
+body.dark-mode #addTaskBtn {
+  background: #333;
+  color: #fff;
+}
+body.dark-mode #addTaskBtn:hover {
+  background: #555;
+}
+body.dark-mode .task-item:hover {
+  background: #2f2f2f;
+}
+body.dark-mode .task-item .deadline {
+  color: #bbb;
+}
+body.dark-mode .task-item.done span {
+  color: #777;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(150%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOutRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(150%); opacity: 0; }
+}

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sinh viên đại học</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="promodo.css" />
+  <link rel="stylesheet" href="task.css" />
+  <link rel="stylesheet" href="youtube.css" />
+  <link rel="stylesheet" href="background.css" />
+  <link rel="stylesheet" href="chat.css" />
+  <link rel="stylesheet" href="pip.css" />
+  <link rel="stylesheet" href="profile.css" />  
+  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="donate.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <video id="pipVideo" style="display: none;" muted playsinline></video>
+  <canvas id="pipCanvas" width="640" height="360" style="display: none;"></canvas>
+  <video autoplay muted loop id="bg-video">
+    <source src="1.mp4" type="video/mp4" />
+  </video>
+
+<div id="overlay">
+  <div class="overlay-content">
+    <h1>🎧 Chào mừng bạn</h1>
+    <p>Nhấn vào màn hình để bắt đầu trải nghiệm thư giãn</p>
+  </div>
+</div>
+
+<div class="container">
+  <nav class="navbar">
+    <div class="nav-right">
+      <div class="settings-menu" id="settingsMenu">
+        <button class="nav-button" id="toggleTaskPanel"><img src="https://cdn-icons-png.flaticon.com/512/839/839860.png"></button>      
+        <button class="nav-button" id="togglePomodoroBtn"><img src="https://cdn-icons-png.flaticon.com/512/3889/3889548.png"></button>
+        <button class="nav-button" id="chatBtn"><img src="https://cdn-icons-png.flaticon.com/512/17671/17671547.png"></button>
+        <button class="nav-button" id="toggleMusic"><img src="https://cdn-icons-png.flaticon.com/512/461/461238.png"></button>        
+        <button class="nav-button" id="fullscreenBtn"><img src="https://cdn-icons-png.flaticon.com/512/1549/1549457.png"></button>
+        <button class="nav-button" id="changeBgBtn"><img src="https://cdn-icons-png.flaticon.com/512/739/739249.png"></button>
+        <button class="nav-button" id="night-mode"><img src="https://cdn-icons-png.flaticon.com/512/4893/4893584.png"></button>
+        <button class="nav-button" id="toggleProfile"><img src="https://cdn-icons-png.flaticon.com/512/456/456212.png" alt="Profile" /></button>
+        <div id="profilePanel">
+          <span>Profile</span>
+          <div class="card">
+            <div class="card">
+              <img id="avatarImage" class="avatar" src="3.jpg" alt="Avatar">
+              <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+            </div>
+              <h1 id="profileName" class="sparkle" contenteditable="false">𝑮𝒊𝒗𝒆 𝒎𝒆 𝒚𝒐𝒖𝒓 𝒔𝒐𝒖𝒍</h1>
+              <p id="profileDesc" contenteditable="false">học ngày cày đêm</p>
+
+  <div>
+ <!-- Nút thay ảnh -->
+<button id="changeAvatarBtn" class="profile-btn">
+  <img src="https://cdn-icons-png.flaticon.com/512/8188/8188338.png" style="width:18px;vertical-align:middle;margin-right:6px;"> Thay ảnh
+</button>
+<!-- Nút edit -->
+<button id="editProfileBtn" class="profile-btn">
+  <img src="https://cdn-icons-png.flaticon.com/512/10426/10426353.png" style="width:18px;vertical-align:middle;margin-right:6px;"> Sửa hồ sơ
+</button>
+<!-- Nút save -->
+<button id="saveProfileBtn" class="profile-btn" style="display:none">
+  <img src="https://cdn-icons-png.flaticon.com/512/2874/2874091.png" style="width:18px;vertical-align:middle;margin-right:6px;"> Lưu lại
+</button>
+  </div>
+          </div>
+        <div class="profile-actions">
+          <button class="profile-btn">Profile</button>
+          <button class="profile-btn">Thông tin sever</button>
+          <button class="profile-btn" id="donateBtn">Ủng hộ</button>
+          <button class="profile-btn" id="showLogin">Đăng nhập</button>
+          <button class="profile-btn" id="showRegister">Đăng ký</button>
+          <button id="logoutBtn" class="profile-btn" style="display:none" onclick="logout()"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" style="width:18px;vertical-align:middle;margin-right:6px;">Đăng xuất</button>        
+        </div>
+      </div>
+    </div>
+      <button class="nav-button" id="settingsToggleBtn"><img src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" title="Cài đặt" /></button>
+    </div>
+  </nav>
+</div>
+<!-- Panel hiển thị Task (tách ra ngoài navbar) -->
+<div id="taskPanel" style="display: none;">
+  <h3 style="margin-top: 0;">TASK</h3>
+  <ul id="taskList" style="list-style: none; padding-left: 0;"></ul>
+  <input type="text" id="taskInput" placeholder="Thêm công việc..." />
+  <input type="date" id="deadlineInput" />
+  <button id="addTaskBtn">➕ Thêm</button>
+</div>
+  <!-- Hero Section -->
+<section class="hero">
+  <h1 class="title">Welcome to <span class="highlight">Countdown To Graduation</span> today</h1>
+  <div class="badge">
+    <img src="3.jpg" class="avatar1" />
+    <span>Sever dành cho học sinh THPT <br /><small>Lucky day!</small></span>
+    <div class="clock-timer">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,50 C300,150 900,-50 1200,50 L1200,120 L0,120 Z" fill="rgba(255,255,255,0.03)"></path>
+      </svg>
+    <div id="clock">00:00:00</div>
+    <div id="date">--</div>
+    </div>
+  </div>
+</section>
+  <!-- Player Section -->
+<div class="player">
+  <div class="track-info">
+    <span id="trackTitle" style="cursor: pointer;">Relax Radio</span>
+    <img src="2.png" class="track-img" />
+  </div>
+  <div class="controls">
+    <button id="prevBtn"><img src="https://cdn-icons-png.flaticon.com/512/3495/3495779.png" alt="Previous" width="28" /></button>
+    <button id="playPauseBtn"><img id="playPauseIcon" src="https://cdn-icons-png.flaticon.com/512/3669/3669483.png" alt="Play" width="28" /></button>
+    <button id="nextBtn"><img src="https://cdn-icons-png.flaticon.com/512/3495/3495789.png" alt="Next" width="28" /></button>
+  </div>
+  <div class="progress">
+    <span id="currentTime">0:00</span>
+    <div class="bar">
+      <div class="filled" id="progressBar"></div>
+    </div>
+      <span id="duration"></span>
+  </div>
+</div>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Sinh viên đại học. All rights reserved.</p>
+  </footer>
+  <!-- Chat Button and Box -->
+<div id="chat-box">
+  <h3 class="section-title">SUPPORT</h3>
+  <input id="sender" type="text" placeholder="Tên của bạn" />
+  <textarea id="message" placeholder="Nội dung tin nhắn"></textarea>
+  <button onclick="sendToDiscord()">📨 Gửi</button>
+</div>
+  <!-- Pomodoro Timer -->
+<div class="pomodoro" id="pomodoroModule">
+  <div class="timer-box" id="dragTarget">
+    <div class="timer-header" id="dragHandle">
+      <span>POMODO</span>
+      <span id="minimizeBtn"><img src="https://img.icons8.com/ios/50/minimize-window.png" alt="Minimize" width="16" title="mini" /></span>
+    </div>
+    <div class="time-display" id="time">20:00</div>
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+    <div class="mode-tabs">
+      <button class="mode active" data-minutes="20">Pomodoro</button>
+      <button class="mode" data-minutes="5">Short Break</button>
+      <button class="mode" data-minutes="45">Long Break</button>
+      <span class="settings" id="openSettings" title="Cài đặt">⚙️</span>
+      <div class="pomodoro-settings" id="settingsPanel" style="display: none;">
+        <h4>Cài đặt thời gian</h4>
+        <label>Pomodoro (phút): <input type="number" id="setPomodoro" value="20" min="1" /></label><br />
+        <label>Short Break (phút): <input type="number" id="setShortBreak" value="5" min="1" /></label><br />
+        <label>Long Break (phút): <input type="number" id="setLongBreak" value="45" min="1" /></label><br />
+        <button id="saveSettings">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hộp nhạc -->
+<div id="musicBox" class="music-box">
+  <div class="music-header">
+    <span>MUSIC</span>
+    <button id="closeMusic">✖️</button>
+  </div>
+  <hr>
+  <label for="youtubeUrl">YOUTUBE LINK</label>
+  <div class="input-group">
+    <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." />
+    <button id="loadYoutube"><img src="https://cdn-icons-png.flaticon.com/512/27/27223.png"></button>
+    <input type="range" id="youtubeVolume" min="0" max="1" step="0.01" value="0">
+  </div>
+  <label>AMBIANCE</label>
+  <div class="ambiance-group">
+    <div class="ambiance-item">
+      <span>Rain</span>
+      <button class="muteBtn" data-sound="rain"><img src="https://img.icons8.com/ios-filled/24/mute.png"></button>
+      <input type="range" class="ambianceVolume" data-sound="rain" min="0" max="1" step="0.01" value="0">
+    </div>
+    <div class="ambiance-item">
+      <span>Fireplace</span>
+      <button class="muteBtn" data-sound="fireplace"><img src="https://img.icons8.com/ios-filled/24/mute.png"></button>
+      <input type="range" class="ambianceVolume" data-sound="fireplace" min="0" max="1" step="0.01" value="0">
+    </div>
+    <div class="ambiance-item">
+      <span>Cafe</span>
+      <button class="muteBtn" data-sound="cafe"><img src="https://img.icons8.com/ios-filled/24/mute.png"></button>
+      <input type="range" class="ambianceVolume" data-sound="cafe" min="0" max="1" step="0.01" value="0">
+    </div>
+    <div class="ambiance-item">
+      <span>Relax Radio</span>
+      <button class="muteBtn" data-sound="audioPlayer"><img src="https://img.icons8.com/ios-filled/24/mute.png"></button>
+      <input type="range" id="mainVolume" min="0" max="1" step="0.01" value="0.8" />
+    </div>
+  </div>
+<!-- Hidden YouTube Player -->
+<iframe id="ytPlayer"
+        type="text/html"
+        width="0"
+        height="0"
+        frameborder="0"
+        allow="autoplay"
+        allowfullscreen
+        style="display: none;">
+</iframe>
+  <!-- ambiance audios -->
+  <audio id="audioPlayer" src="1.mp3" loop crossorigin="anonymous"></audio>
+  <audio id="rain" loop src="2.mp3"></audio>
+  <audio id="fireplace" loop src="3.mp3"></audio>
+  <audio id="cafe" loop src="4.mp3"></audio>    
+</div>
+<!-- Form Đăng Ký -->
+<!-- FORM ĐĂNG KÝ / ĐĂNG NHẬP -->
+<div id="authBox" class="auth-box">
+  <div class="auth-card">
+    <!-- Nút đóng -->
+    <button class="close-btn" onclick="closeAuthBox()">×</button>
+
+    <div class="avatar-icon">
+      <img src="3.jpg" alt="User Icon">
+    </div>
+
+    <!-- Đăng nhập -->
+    <div id="loginForm">
+      <div class="input-group">
+        <input type="text" id="loginUsername" placeholder="Username" />
+      </div>
+      <div class="input-group">
+        <span class="icon"><img src="https://cdn-icons-png.flaticon.com/512/2913/2913604.png" /></span>
+        <input type="password" id="loginPassword" placeholder="Password" />
+        <span class="icon eye">&#128065;</span>
+      </div>
+      <div class="options">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="#" onclick="forgot()">Forgot password?</a>
+      </div>
+      <button class="login-btn" onclick="login()">LOGIN</button>
+      <p>Chưa có tài khoản? <a href="#" onclick="switchForm('register')">Đăng ký</a></p>
+    </div>
+
+    <!-- Đăng ký -->
+    <div id="registerForm" class="form-container">
+      <div class="input-group">
+        <input type="text" id="regUsername" placeholder="Tên tài khoản-email" />
+      </div>
+
+      <div class="input-group">
+        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" />
+        <input type="password" id="regPassword" placeholder="Mật khẩu" />
+        <img class="eye icon" src="https://cdn-icons-png.flaticon.com/512/709/709612.png" onclick="togglePassword('regPassword')" />
+      </div>
+
+      <div class="input-group">
+        <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" />
+        <input type="password" id="regConfirm" placeholder="Nhập lại mật khẩu" />
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="recovery" placeholder="Email khôi phục" />
+      </div>
+
+      <button class="login-btn" onclick="register()">Đăng ký</button>
+      <p class="switch-text">Đã có tài khoản? <a href="#" onclick="switchForm('login')">Đăng nhập</a></p>
+    </div>
+
+  </div>
+</div>
+<!-- Modal Ủng hộ -->
+<div id="donateModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeDonateModal()">&times;</span>
+    <h2 style="margin-bottom: 0.5em;">Ủng hộ tác giả <span style="font-size:1.5em;">💖</span></h2>
+    <p style="color:#666;">Cảm ơn bạn đã ủng hộ để website phát triển!</p>
+    <div class="donate-methods">
+      <div class="donate-card">
+        <b>Chuyển khoản BIDV</b><br>
+        <span>Số tài khoản: <b id="bankNumber">0334697523</b> <button class="copy-btn" onclick="copyBankNumber()">Copy</button></span><br>
+        <span>Chủ tài khoản: <b>Hoàng Ngọc Thành</b></span><br>
+        <img src="img.png" alt="QR ngân hàng" class="qr-img">
+      </div>
+      <div class="donate-card">
+        <b>Momo</b><br>
+        <img src="img.png" alt="QR Momo" class="qr-img">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- Scripts -->
+  <script src="donate.js"></script>
+  <script src="login.js"></script>
+  <script src="profile.js"></script>   
+  <script src="pip.js"></script>
+  <script src="chat.js"></script>
+  <script src="background.js"></script>
+  <script src="youtube.js"></script>
+  <script src="task.js"></script>
+  <script src="promodo.js"></script>
+  <script src="clock.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

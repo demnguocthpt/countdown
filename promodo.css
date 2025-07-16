@@ -1,0 +1,274 @@
+/* Pomodoro chung */
+/* Hộp Pomodoro */
+.pomodoro .timer-box {
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(44, 132, 20, 0.1);
+  text-align: center;
+  min-width: 320px;
+  z-index: 1000;
+  
+}
+
+.pomodoro .timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: auto;
+  z-index: 1001;
+  color: #000000;
+    border-bottom: 2px solid #8f8f8f;
+  font-weight: bold;
+  font-size: 20px;
+
+}
+
+.pomodoro .time-display {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 20px 0;
+  z-index: 1001;
+  color: #000000;
+}
+
+.pomodoro .controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1001;
+}
+
+.pomodoro .controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #3a3d3d;
+  color: #fbfbfb;
+}
+.pomodoro .controls button:hover {
+  background-color: #000000;
+}
+
+.pomodoro .mode-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  z-index: 1001;
+}
+
+.pomodoro .mode-tabs button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-bottom: 2px solid transparent;
+  color: #000000;
+}
+
+.pomodoro .mode-tabs button.active {
+  border-bottom: 2px solid #000000;
+  font-weight: bold;
+}
+
+#dragHandle {
+  cursor: move;
+  user-select: none;
+  background: #00000000;
+}
+
+/* Khi thu nhỏ */
+.pomodoro.minimized .timer-box > *:not(.timer-header):not(.time-display) {
+  display: none;
+}
+
+.pomodoro.minimized .time-display {
+  font-size: 20px;
+  padding: 0px 40px;
+  margin: 0px;
+  color: #000000;
+}
+
+.pomodoro.minimized .timer-box {
+  padding: 0px 10px;
+  min-width: auto;
+  width: auto;
+}
+
+/* Cải tiến giao diện settings */
+.pomodoro .pomodoro-settings {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 15px 18px;
+  margin-top: 10px;
+  font-size: 14px;
+  z-index: 2000;
+  width: 220px;
+  display: none;
+}
+
+
+.pomodoro .pomodoro-settings h4 {
+  margin-top: 0;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #000000;/*1*/
+  text-align: center;
+}
+
+.pomodoro .pomodoro-settings label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #222; /*2*/
+}
+
+.pomodoro .pomodoro-settings input {
+  width: 60px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  margin-left: 6px;
+}
+
+.pomodoro .pomodoro-settings button {
+  margin-top: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #515252;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.pomodoro .pomodoro-settings button:hover {
+  background: #000000;
+}
+
+/* Nút ⚙️ */
+.settings {
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: auto;
+  padding-left: 8px;
+  user-select: none;
+}
+
+.pomodoro {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  z-index: 2000;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none; /* ban đầu không nhận sự kiện */
+  transform: translateX(-150%);
+  transition: all 0.5s ease;
+}
+
+/* Khi hiện */
+.pomodoro.visible {
+  animation: slideInLeft 0.6s ease forwards;
+  pointer-events: auto; /* Bật tương tác */
+}
+
+/* Khi ẩn */
+.pomodoro.hidden {
+  animation: slideOutLeft 0.6s ease forwards;
+}
+
+/* Animation */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+}
+
+
+
+
+/* Pomodoro giao diện tối */
+body.dark-mode .pomodoro .timer-box {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+body.dark-mode .pomodoro .timer-header,
+body.dark-mode .pomodoro .time-display,
+body.dark-mode .pomodoro .mode-tabs button {
+  color: #ffffff;
+}
+
+body.dark-mode .pomodoro .mode-tabs button.active {
+  border-bottom: 2px solid #ffffff;
+}
+
+body.dark-mode .pomodoro .controls button {
+  background: #333;
+  color: #fff;
+}
+
+body.dark-mode .pomodoro .controls button:hover {
+  background: #111;
+}
+
+body.dark-mode .pomodoro .pomodoro-settings {
+  background: #2c2c2c;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode .pomodoro .pomodoro-settings input {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+body.dark-mode .pomodoro .settings {
+  color: #fff;
+}
+
+body.dark-mode .pomodoro .pomodoro-settings h4 {
+  margin-top: 0;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #fffbfb;/*1*/
+  text-align: center;
+}
+
+body.dark-mode .pomodoro .pomodoro-settings label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #fffcfc; /*2*/
+}
