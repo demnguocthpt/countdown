@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Hiệu ứng tiêu đề động
-  const text = "Sinh viên đại học";
+  const text = "Countdown to Graduation";
   const chars = text.split('');
   let visible = [...chars];
   let index = chars.length - 1;
